@@ -164,4 +164,18 @@ public class UserDAO {
     statement.setInt(4, user.getUser_id());
     return statement.executeUpdate() > 0;
   }
+
+  /**
+   * insert a new User in database
+   * @param user new user to be insert
+   * @throws SQLException if SQL error
+   */
+  public void insertUser(User user) throws SQLException {
+    Connection connection = getConnection();
+    PreparedStatement ps = connection.prepareStatement(INSERT_USERS_SQL);
+    ps.setString(1, user.getUser_name());
+    ps.setString(2, user.getUser_email());
+    ps.setString(3, user.getUser_country());
+    ps.executeUpdate();
+  }
 }
