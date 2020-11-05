@@ -3,10 +3,10 @@ package co.blacklabel.learn.model;
 import java.io.Serializable;
 
 public class User implements Serializable {
-  private int user_id;
-  private String user_name;
-  private String user_email;
-  private String user_country;
+  protected int user_id;
+  protected String user_name;
+  protected String user_email;
+  protected String user_country;
 
   public User(){
     super();

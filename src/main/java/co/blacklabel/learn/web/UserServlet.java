@@ -58,16 +58,18 @@ public class UserServlet extends HttpServlet {
     requestDispatcher.forward(request, response);
   }
 
-  private void insertUser(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+  private void insertUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
     String name = request.getParameter("user_name");
     String email = request.getParameter("user_email");
     String country = request.getParameter("user_country");
     User user = new User(name, email, country);
     userDAO.insertUser(user);
+    response.sendRedirect("list");
   }
 
   private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
     int user_id = Integer.parseInt(request.getParameter("user_id"));
+
     boolean resp = userDAO.deleteUser(user_id);
     response.sendRedirect("list");
   }

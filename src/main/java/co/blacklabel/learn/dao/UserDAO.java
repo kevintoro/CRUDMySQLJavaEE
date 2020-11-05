@@ -10,30 +10,30 @@ import java.util.List;
  * Class for control the User data
  */
 public class UserDAO {
-  private String jdbcURL = "jdbc:mysql://localhost:3306/demo?useSSL=false";
+  private String jdbcURL = "jdbc:mysql://localhost:3306/demo?allowPublicKeyRetrieval=true&useSSL=false";
   private String dbUser = "root";
   private String dbPassword = "KAtg1090528922";
 
   private static final String INSERT_USERS_SQL = "INSERT INTO users(user_name, user_email, user_country)"
           +"VALUES (?,?,?);";
-  private static final String SELECT_USER_BY_ID = "select id,name,email,country from users where id =?";
+  private static final String SELECT_USER_BY_ID = "select user_id,user_name,user_email,user_country from users where user_id =?";
   private static final String SELECT_ALL_USERS = "select * from users";
-  private static final String DELETE_USERS_SQL = "delete from users where id = ?;";
-  private static final String UPDATE_USERS_SQL = "update users set name = ?,email= ?, country =? where id = ?;";
+  private static final String DELETE_USERS_SQL = "delete from users where user_id = ?;";
+  private static final String UPDATE_USERS_SQL = "update users set user_name = ?,user_email= ?, user_country =? where user_id = ?;";
 
   /**
    * Make the Connection to the database using the url, user, password given in config values
    * @return Connection if that's return ok, else null
    */
   private Connection getConnection(){
-    Connection connection = null;
     try{
       Class.forName("com.mysql.jdbc.Driver");
-      connection = DriverManager.getConnection(jdbcURL, dbUser, dbPassword);
+      Connection connection = DriverManager.getConnection(jdbcURL, dbUser, dbPassword);
+      return connection;
     } catch (ClassNotFoundException | SQLException exception){
       System.out.println(exception);
     }
-    return connection;
+    return null;
   }
 
   /**
@@ -121,10 +121,10 @@ public class UserDAO {
       ResultSet rs = ps.executeQuery();
 
       while (rs.next()){
-        int id = rs.getInt("id");
-        String name = rs.getString("name");
-        String email = rs.getString("email");
-        String country = rs.getString("country");
+        int id = rs.getInt("user_id");
+        String name = rs.getString("user_name");
+        String email = rs.getString("user_email");
+        String country = rs.getString("user_country");
         users.add(new User(id, name, email, country));
       }
     } catch (SQLException e){
