@@ -11,8 +11,8 @@ import java.util.List;
  */
 public class UserDAO {
   private String jdbcURL = "jdbc:mysql://localhost:3306/demo?allowPublicKeyRetrieval=true&useSSL=false";
-  private String dbUser = "root";
-  private String dbPassword = "KAtg1090528922";
+  private String dbUser = "user";
+  private String dbPassword = "password";
 
   private static final String INSERT_USERS_SQL = "INSERT INTO users(user_name, user_email, user_country)"
           +"VALUES (?,?,?);";
